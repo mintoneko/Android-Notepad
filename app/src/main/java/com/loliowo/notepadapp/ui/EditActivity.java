@@ -17,10 +17,13 @@ import com.loliowo.notepadapp.databinding.ActivityEditBinding;
 import com.loliowo.notepadapp.db.MyDbHelper;
 import com.loliowo.notepadapp.utils.TimeUtil;
 
+import java.io.Serializable;
+
 public class EditActivity extends AppCompatActivity {
 
   private ActivityEditBinding binding;
   private MyDbHelper myDbHelper;
+  private Notepad notepad;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +37,16 @@ public class EditActivity extends AppCompatActivity {
       return insets;
     });
 
+    Serializable serializable = getIntent().getSerializableExtra("notepad");
+    if (serializable == null) {
+      binding.titleTv.setText("添加记录");
+    } else {
+      binding.titleTv.setText("修改记录");
+      notepad = (Notepad) serializable;
+      binding.contentEt.setText(notepad.getContent());
+    }
+
     binding.backIv.setOnClickListener(v -> finish());
-    binding.titleTv.setText("添加记录");
     binding.delete.setOnClickListener(v -> binding.contentEt.setText(""));
     // Lambda写法
     myDbHelper = new MyDbHelper(this);
@@ -47,12 +58,22 @@ public class EditActivity extends AppCompatActivity {
           Toast.makeText(EditActivity.this, "请输入内容", Toast.LENGTH_SHORT).show();
           return;
         }
-        Notepad notepad = new Notepad();
-        notepad.setContent(content);
-        notepad.setTime(TimeUtil.getTime());
 
-        myDbHelper.insert(notepad);
-        Toast.makeText(EditActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
+        // 判断是新增还是修改
+        if (notepad == null) {
+          notepad = new Notepad();
+          notepad.setContent(content);
+          notepad.setTime(TimeUtil.getTime());
+          myDbHelper.insert(notepad);
+          Toast.makeText(EditActivity.this, "新增成功", Toast.LENGTH_SHORT).show();
+
+        } else {
+          notepad.setContent(content);
+          notepad.setTime(TimeUtil.getTime());
+          myDbHelper.update(notepad);
+          Toast.makeText(EditActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+        }
+
         finish();
         // 保存成功之后应该直接finish该界面回到主界面
       }

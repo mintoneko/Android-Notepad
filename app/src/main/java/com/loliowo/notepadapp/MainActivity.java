@@ -66,4 +66,10 @@ public class MainActivity extends AppCompatActivity {
     List<Notepad> notepadList = myDbHelper.findAll();
     notepadListAdapter.update(notepadList);
   }
+
+  @Override
+  public void onResume(){
+    super.onResume();
+    findAll();
+  }
 }

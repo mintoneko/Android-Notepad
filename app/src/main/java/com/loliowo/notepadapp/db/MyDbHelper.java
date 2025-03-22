@@ -69,6 +69,12 @@ public class MyDbHelper extends SQLiteOpenHelper {
   public void delete(Notepad notepad) {
     SQLiteDatabase db = getWritableDatabase();
     String sql = "delete from notepad where id=?";
-    db.execSQL(sql,new Object[]{notepad.getId()});
+    db.execSQL(sql, new Object[]{notepad.getId()});
+  }
+
+  public void update(Notepad notepad) {
+    SQLiteDatabase db = getWritableDatabase();
+    String sql = "update notepad set content = ?,time = ? where id = ?";
+    db.execSQL(sql, new Object[]{notepad.getContent(), notepad.getTime(), notepad.getId()});
   }
 }

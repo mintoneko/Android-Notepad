@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.loliowo.notepadapp.MainActivity;
 import com.loliowo.notepadapp.bean.Notepad;
 import com.loliowo.notepadapp.databinding.ItemListBinding;
+import com.loliowo.notepadapp.ui.EditActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +51,17 @@ public class NotepadListAdapter extends RecyclerView.Adapter<NotepadListAdapter.
       public boolean onLongClick(View v) {
         showDeleteDialog(notepad, v.getContext());
         return false;
+      }
+    });
+
+    // 添加点按编辑事件
+    holder.itemView.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        MainActivity mainActivity=(MainActivity) v.getContext();
+        Intent intent = new Intent(mainActivity, EditActivity.class);
+        intent.putExtra("notepad",notepad);
+        mainActivity.startActivityForResult(intent,100);
       }
     });
   }
