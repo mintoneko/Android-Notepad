@@ -23,6 +23,7 @@
 ### 编辑界面
 
 <div align="center">
+
 <img src="images/edit.png" alt="edit" style="zoom:33%;height:400px" />
 
 </div>
@@ -58,7 +59,11 @@ com.loliowo.notepadapp
 
 ## 编写流程✏️
 
+<div align="center">
+
 <img src="images/image-20250322210539473.png" alt="image-20250322210539473" style="zoom:50%;" />
+
+</div>
 
 ## 快速开始 🚀
 
