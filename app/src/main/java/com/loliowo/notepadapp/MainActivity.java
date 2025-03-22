@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 
 import com.loliowo.notepadapp.adapter.NotepadListAdapter;
 import com.loliowo.notepadapp.bean.Notepad;
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     // 显示所有数据库中存在的信息
     myDbHelper = new MyDbHelper(this);
     NotepadListAdapter notepadListAdapter = new NotepadListAdapter();
+    binding.listRv.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+    // 给listRv添加分割线效果
     binding.listRv.setAdapter(notepadListAdapter);
     // 对listRv设置Adapter
     List<Notepad> notepadList = myDbHelper.findAll();
