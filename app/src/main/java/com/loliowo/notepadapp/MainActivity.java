@@ -24,7 +24,9 @@ public class MainActivity extends AppCompatActivity {
   private ActivityMainBinding binding;
 
   //数据库帮助类
-  private MyDbHelper myDbHelper;
+  public MyDbHelper myDbHelper;
+
+  public NotepadListAdapter notepadListAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +51,18 @@ public class MainActivity extends AppCompatActivity {
 
     // 显示所有数据库中存在的信息
     myDbHelper = new MyDbHelper(this);
-    NotepadListAdapter notepadListAdapter = new NotepadListAdapter();
+    //  NotepadListAdapter notepadListAdapter = new NotepadListAdapter(); 转为成员变量
+    notepadListAdapter = new NotepadListAdapter();
     binding.listRv.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
     // 给listRv添加分割线效果
     binding.listRv.setAdapter(notepadListAdapter);
     // 对listRv设置Adapter
+
+    findAll();
+    // 封装更新主页的方法
+  }
+
+  public void findAll() {
     List<Notepad> notepadList = myDbHelper.findAll();
     notepadListAdapter.update(notepadList);
   }

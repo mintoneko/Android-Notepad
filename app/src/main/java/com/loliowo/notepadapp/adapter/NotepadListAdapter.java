@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.loliowo.notepadapp.MainActivity;
 import com.loliowo.notepadapp.bean.Notepad;
 import com.loliowo.notepadapp.databinding.ItemListBinding;
 
@@ -55,7 +56,7 @@ public class NotepadListAdapter extends RecyclerView.Adapter<NotepadListAdapter.
   private void showDeleteDialog(Notepad notepad, Context context) {
     AlertDialog alertDialog = new AlertDialog.Builder(context)
       .setTitle("温馨提示")
-      .setMessage("确定要退出登陆吗？")
+      .setMessage("确定要删除这条内容吗？")
       .setNegativeButton("取消", new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int i) {
@@ -66,6 +67,11 @@ public class NotepadListAdapter extends RecyclerView.Adapter<NotepadListAdapter.
         @Override
         public void onClick(DialogInterface dialog, int i) {
           Toast.makeText(context, "确定", Toast.LENGTH_SHORT).show();
+          MainActivity mainActivity = (MainActivity) context;
+          mainActivity.myDbHelper.delete(notepad);
+          // 这里涉及一个深层的context的实际内容：多多理解
+          mainActivity.findAll();
+          Toast.makeText(mainActivity, "删除成功", Toast.LENGTH_SHORT).show();
         }
       })
       .create();
