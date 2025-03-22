@@ -14,11 +14,11 @@
 
 ### 主界面
 
-<img src="images/main_page.png" alt="main_page" style="zoom:33%;" />
+<img src="images/main_page.png" alt="main_page" style="zoom:33%;height:400px" />
 
 ### 编辑界面
 
-<img src="images/edit.png" alt="edit" style="zoom:33%;" />
+<img src="images/edit.png" alt="edit" style="zoom:33%;height:400px" />
 
 ### 数据库
 
